@@ -29,7 +29,7 @@ class _AppHomeState extends State<AppHome> {
         appBar: AppBar(
           actions: [
             IconButton(
-              onPressed: clearFields,
+              onPressed: _clearFields,
               icon: const Icon(
                 Icons.refresh_sharp,
                 size: 27,
@@ -91,7 +91,7 @@ class _AppHomeState extends State<AppHome> {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: calculateIMC,
+                      onPressed: _calculateIMC,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.green,
                         shape: RoundedRectangleBorder(
@@ -124,7 +124,7 @@ class _AppHomeState extends State<AppHome> {
     );
   }
 
-  calculateIMC() {
+  _calculateIMC() {
     int? height = int.tryParse(_heightController.text);
     if (height == null) {
       setState(() {
@@ -145,17 +145,18 @@ class _AppHomeState extends State<AppHome> {
 
     final double imc = weight / (height * 2) * 100;
 
-    setResult(imc);
+    _setResult(imc);
   }
 
-  clearFields() {
+  _clearFields() {
     setState(() {
       _heightController.text = '';
       _weightController.text = '';
+      _result = 'Informe seus dados!';
     });
   }
 
-  setResult(double imc) {
+  _setResult(double imc) {
     final String result;
     if (imc < 16) {
       result = 'IMC: ${imc.toStringAsFixed(2)} = Magreza grave!';
